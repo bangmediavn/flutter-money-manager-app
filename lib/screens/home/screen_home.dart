@@ -1,13 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:money_manager/screens/category/screen_category.dart';
+import 'package:money_manager/screens/category/widgets/category_add_popup.dart';
+import 'package:money_manager/screens/home/widgets/bottom_navigation_widget.dart';
+import 'package:money_manager/screens/transactions/screen_transactions.dart';
 
 class ScreenHome extends StatelessWidget {
-  const ScreenHome({Key? key}) : super(key: key);
+  ScreenHome({Key? key}) : super(key: key);
+  static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(0);
+
+  final _pages = const [ScreenTransactions(), ScreenCategory()];
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.grey[200],
+      appBar: AppBar(
+        title: const Text('MONEY MANAGER'),
+        centerTitle: true,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          if (selectedIndexNotifier.value == 0){
+
+          }else {
+            showCategoryAddPopup(context);
+          }
+        },
+        child: const Icon(Icons.add),
+      ),
+
+      bottomNavigationBar: const HomeBottomNavigation(),
       body: SafeArea(
-        child: Text('Hello'),
+        child: ValueListenableBuilder(
+            valueListenable: selectedIndexNotifier,
+            builder: (BuildContext ctx, int index, Widget? child){
+              return _pages[index];
+            }
+        ),
       ),
     );
   }
