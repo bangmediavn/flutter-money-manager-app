@@ -17,7 +17,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
           child: TextFormField(
             controller: categoryNameController,
             decoration: const InputDecoration(
-              hintText: 'Category Name',
+              hintText: 'Category name',
               border: OutlineInputBorder(),
             ),
           ),
@@ -33,15 +33,17 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
               onPressed: (){
-                if (categoryNameController.text == null || categoryNameController.text.isEmpty){
+                if (categoryNameController.text.isEmpty){
                   return;
                 }
+                final _name = categoryNameController.text;
+                final _type = selectedCategoryNotifier.value;
                 final category = CategoryModel(
                     id: DateTime.now().millisecondsSinceEpoch.toString(),
-                    name: categoryNameController.text,
-                    type: selectedCategoryNotifier.value);
+                    name: _name,
+                    type: _type);
 
-                CategoryDb().insertCategory(category);
+                CategoryDb.instance.insertCategory(category);
                 Navigator.of(ctx).pop();
               },
               child: const Text('Add')),

@@ -16,30 +16,39 @@ class _ScreenCategoryState extends State<ScreenCategory> with SingleTickerProvid
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-    CategoryDb().getCategories().then((value) {
-      print(value);
-    });
+    CategoryDb.instance.refreshUi();
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children:  [
-        TabBar(
-          indicatorColor: Colors.blue,
-          labelColor: Colors.black,
-          controller: _tabController,
-            tabs: const [
-          Tab(text: 'INCOME',),
-          Tab(text: 'EXPENSE',)
-        ]),
-        Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            children: const [TabBarIncomeWidget(), TabBarExpenseWidget()],
+    return Container(
+      color: Colors.blue,
+      child: Column(
+        children:  [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 1),
+            child: TabBar(
+              indicatorWeight: 2.5,
+              indicatorColor: Colors.white,
+              labelColor: Colors.white,
+              controller: _tabController,
+              unselectedLabelColor: Colors.white,
+                tabs: const [
+              Tab(text: 'INCOME',),
+              Tab(text: 'EXPENSE',)
+            ]),
           ),
-        )
-      ],
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                TabBarIncomeWidget(),
+                TabBarExpenseWidget()
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
