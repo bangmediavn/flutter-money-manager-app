@@ -22,22 +22,19 @@ class _ScreenCategoryState extends State<ScreenCategory> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
+      color: const Color.fromRGBO(60,60,60,1),
       child: Column(
         children:  [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 1),
-            child: TabBar(
-              indicatorWeight: 2.5,
-              indicatorColor: Colors.white,
-              labelColor: Colors.white,
-              controller: _tabController,
-              unselectedLabelColor: Colors.white,
-                tabs: const [
-              Tab(text: 'INCOME',),
-              Tab(text: 'EXPENSE',)
-            ]),
-          ),
+          TabBar(
+            indicatorWeight: 2.8,
+            indicatorColor: Colors.white,
+            labelColor: Colors.white,
+            controller: _tabController,
+            unselectedLabelColor: Colors.white,
+              tabs: const [
+            Tab(text: 'INCOME',),
+            Tab(text: 'EXPENSE',)
+          ]),
           Expanded(
             child: TabBarView(
               controller: _tabController,

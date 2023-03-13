@@ -13,7 +13,7 @@ class TabBarIncomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[300],
+      color: const Color.fromRGBO(70,70,70,1),
       child: ValueListenableBuilder(
           valueListenable: CategoryDb.instance.incomeCategoryList,
           builder: (BuildContext ctx, List<CategoryModel> incomeList, Widget? _) {
@@ -25,7 +25,8 @@ class TabBarIncomeWidget extends StatelessWidget {
                   final timeStamp = DateTime.fromMillisecondsSinceEpoch(id);
                   final date = getTransactionDate(timeStamp);
                   return Card(
-                    margin: const EdgeInsets.fromLTRB(3, 3, 3, 0),
+                    color: const Color.fromRGBO(60,60,60,1),
+                    margin: const EdgeInsets.fromLTRB(4, 5, 4, 0),
                     elevation: 1,
                     child: ListTile(
                       leading: Transform.rotate(
@@ -48,7 +49,7 @@ class TabBarIncomeWidget extends StatelessWidget {
                           letterSpacing: 1.1,
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
-                          color: Colors.black87
+                          color: Colors.white
                           ,
                         ),
                       ),
@@ -58,7 +59,7 @@ class TabBarIncomeWidget extends StatelessWidget {
                           letterSpacing: 1.1,
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
-                          color: Colors.black54
+                          color: Colors.white
                           ,
                         ),
                       ),
@@ -69,7 +70,10 @@ class TabBarIncomeWidget extends StatelessWidget {
                               CategoryDb.instance
                                   .onDeleteCategory(incomeCategory.id);
                             },
-                            icon: const Icon(Icons.delete)),
+                            icon: const Icon(
+                                Icons.close,
+                              color: Colors.blueGrey,
+                            )),
                       ),
                     ),
                   );

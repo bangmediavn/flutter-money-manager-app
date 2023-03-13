@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager/db/functions/category/category_db.dart';
@@ -33,15 +34,17 @@ class _NewTransActionState extends State<NewTransAction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(70,70,70,1),
       appBar: AppBar(
+        backgroundColor: const  Color.fromRGBO(60,60,60,1),
+        elevation: 0,
         title: const Text(
-            'Add Transaction',
+          'Add Transaction',
           style: TextStyle(
             letterSpacing: 1.1,
             fontWeight: FontWeight.w600,
             fontSize: 18,
-            color: Colors.white
-            ,
+            color: Colors.white,
           ),
         ),
       ),
@@ -56,27 +59,45 @@ class _NewTransActionState extends State<NewTransAction> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      textCapitalization: TextCapitalization.words,
                       controller: _purposeTextController,
                       validator: (value) {
-                        return (value == null || value.isEmpty ? 'Enter Value' : null);
+                        return (value == null || value.isEmpty
+                            ? 'Enter Value'
+                            : null);
                       },
-                      style: const TextStyle(),
+                      style: const TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
-                          border: OutlineInputBorder(), hintText: 'Purpose'),
+                        hintStyle: TextStyle(color: Colors.white),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide( color: Colors.white)
+
+                          ),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                          hintText: 'Purpose'),
                     ),
                   ),
 
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      decoration: const InputDecoration(
+                          hintStyle: TextStyle(color: Colors.white),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide( color: Colors.white)
+
+                          ),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                          hintText: 'Amount'),
                       controller: _amountTextController,
                       validator: (value) {
-                        return ( value==null || value.isEmpty ? 'Enter Value' : null);
+                        return (value == null || value.isEmpty
+                            ? 'Enter Value'
+                            : null);
                       },
                       keyboardType: TextInputType.number,
-                      style: const TextStyle(),
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(), hintText: 'Amount'),
+                      style: const TextStyle(color: Colors.white),
+
                     ),
                   ),
 
@@ -87,34 +108,53 @@ class _NewTransActionState extends State<NewTransAction> {
                         child: Row(
                           children: [
                             Radio(
-                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
                                 value: CategoryType.income,
                                 groupValue: _categoryType,
+                                activeColor: Colors.white,
+                                fillColor: MaterialStateColor.resolveWith((states) => Colors.white),
                                 onChanged: (newType) {
                                   setState(() {
                                     _categoryType = newType;
                                     _categoryId = null;
                                   });
                                 }),
-                            const Text('Income'),
+                            const Text(
+                                'Income',
+                                style: TextStyle(
+                                    letterSpacing: 1.1,
+                                    fontSize: 14,
+                                    color: Colors.white
+                                )
+                            ),
                           ],
                         ),
                       ),
-
                       Expanded(
                         child: Row(
                           children: [
                             Radio(
-                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
                                 value: CategoryType.expense,
                                 groupValue: _categoryType,
+                                activeColor: Colors.white,
+                                fillColor: MaterialStateColor.resolveWith((states) => Colors.white),
                                 onChanged: (newType) {
                                   setState(() {
                                     _categoryType = newType;
                                     _categoryId = null;
                                   });
                                 }),
-                            const Text('Expense'),
+                            const Text(
+                                'Expense',
+                                style: TextStyle(
+                                    letterSpacing: 1.1,
+                                    fontSize: 14,
+                                    color: Colors.white
+                                )
+                            ),
                           ],
                         ),
                       ),
@@ -122,50 +162,74 @@ class _NewTransActionState extends State<NewTransAction> {
                   ),
                   //DATE CATEGORY
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      TextButton.icon(
-                          onPressed: () async {
-                            final date = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate:
-                                DateTime.now().subtract(const Duration(days: 31)),
-                                lastDate: DateTime.now());
-                            if (date == null) {
-                              return;
-                            }
-                            setState(() {
-                              _dateTime = date;
-                            });
-                          },
-                          icon: const Icon(Icons.calendar_today),
-                          label: Text(_dateTime == null
-                              ? 'Select Date'
-                              : DateFormat(' dd-MMM-yyyy').format(_dateTime!))
+                      Expanded(
+                        child: Row(
+                          children: [
+                            TextButton.icon(
+                                onPressed: () async {
+                                  final date = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now()
+                                          .subtract(const Duration(days: 31)),
+                                      lastDate: DateTime.now());
+                                  if (date == null) {
+                                    return;
+                                  }
+                                  setState(() {
+                                    _dateTime = date;
+                                  });
+                                },
+                                icon: const Icon(Icons.calendar_today,color:  Colors.white,),
+                                label: Text(_dateTime == null
+                                    ? 'Select Date'
+                                    : DateFormat(' dd-MMM-yyyy')
+                                        .format(_dateTime!),
+                                    style: const TextStyle(
+                                      letterSpacing: 1.1,
+                                      fontSize: 14,
+                                      color: Colors.white
+                                    )
+                                )
+                            ),
+                          ],
+                        ),
                       ),
-                      DropdownButton<String>(
-                        underline: const DropdownButtonHideUnderline(child: SizedBox()),
-                          value: _categoryId,
-                          hint: const Text('Select Category'),
-                          items: (_categoryType == CategoryType.income
-                              ? CategoryDb.instance.incomeCategoryList.value
-                              : CategoryDb.instance.expenseCategoryList.value)
-                              .map((e) {
-                            return DropdownMenuItem(
-                              onTap: () {
-                                _categoryModel = e;
-                              },
-                              value: e.id,
-                              child: Text(e.name),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _categoryId = value;
-                            });
-                          }),
-
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            DropdownButton<String>(
+                                underline: const DropdownButtonHideUnderline(
+                                    child: SizedBox()),
+                                value: _categoryId,
+                                iconEnabledColor: Colors.white,
+                                iconDisabledColor: Colors.white,
+                                hint: const Text('Select Category',style: TextStyle(color: Colors.white),),
+                                items: (_categoryType == CategoryType.income
+                                        ? CategoryDb
+                                            .instance.incomeCategoryList.value
+                                        : CategoryDb
+                                            .instance.expenseCategoryList.value)
+                                    .map((e) {
+                                  return DropdownMenuItem(
+                                    onTap: () {
+                                      _categoryModel = e;
+                                    },
+                                    value: e.id,
+                                    child: Text(e.name),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _categoryId = value;
+                                  });
+                                }),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                   //DATE CATEGORY
@@ -181,12 +245,21 @@ class _NewTransActionState extends State<NewTransAction> {
                             }
                           },
                           icon: const Icon(Icons.check),
-                          label: const Text('Add')
+                          label: const Text(
+                              'Add',
+                              style: TextStyle(
+                                  letterSpacing: 1.1,
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600
+                              )
+                          ),
+
+
                       ),
                     ),
                   )
                   //SUBMIT BUTTON
-
                 ],
               ),
             )),
@@ -198,16 +271,18 @@ class _NewTransActionState extends State<NewTransAction> {
     final purposeText = _purposeTextController.text;
     final parsedAmount = double.tryParse(_amountTextController.text);
 
-    if (_categoryId == null || _dateTime == null || _categoryModel == null || parsedAmount == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 5),
-            margin: EdgeInsets.all(8),
-            backgroundColor: Colors.red,
-              content: Text('Please fill all required data',
-              ))
-      );
+    if (_categoryId == null ||
+        _dateTime == null ||
+        _categoryModel == null ||
+        parsedAmount == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 5),
+          margin: EdgeInsets.all(8),
+          backgroundColor: Colors.red,
+          content: Text(
+            'Please fill all required data',
+          )));
     } else {
       final transaction = TransactionModel(
           purpose: purposeText,
@@ -216,15 +291,14 @@ class _NewTransActionState extends State<NewTransAction> {
           categoryType: _categoryType!,
           category: _categoryModel!);
       await TransactionDb.instance.insertTransaction(transaction);
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              behavior: SnackBarBehavior.floating,
-              duration: Duration(seconds: 5),
-              margin: EdgeInsets.all(8),
-              backgroundColor: Colors.green,
-              content: Text('Transaction added',
-              ))
-      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 5),
+          margin: EdgeInsets.all(8),
+          backgroundColor: Colors.green,
+          content: Text(
+            'Transaction added',
+          )));
     }
   }
 }

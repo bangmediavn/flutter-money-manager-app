@@ -25,7 +25,7 @@ class RadioButton extends StatelessWidget {
                 selectedCategoryNotifier.notifyListeners();
 
               }),
-          Text(title),
+          Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
         ],);
       },
     );

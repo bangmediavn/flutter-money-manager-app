@@ -10,23 +10,28 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
   final categoryNameController = TextEditingController();
   showDialog(context: context, builder: (ctx){
     return SimpleDialog(
-      title: const Text('Add Category'),
+      backgroundColor: const Color.fromRGBO(68,68,68,1),
+      title: const Text('Add Category', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(16),
           child: TextFormField(
             controller: categoryNameController,
             decoration: const InputDecoration(
               hintText: 'Category name',
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.white
+                )
+              ),
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(children: [
-            RadioButton(title: 'Income',type: CategoryType.income,),
-            RadioButton(title: 'Expense',type: CategoryType.expense,),
+            Expanded(child: RadioButton(title: 'Income',type: CategoryType.income,)),
+            Expanded(child: RadioButton(title: 'Expense',type: CategoryType.expense,)),
           ],),
         ),
         Padding(
