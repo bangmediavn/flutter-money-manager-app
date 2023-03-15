@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
 import '../../../db/functions/category/category_db.dart';
 import '../../../db/models/category/category_model.dart';
 
 class TabBarExpenseWidget extends StatelessWidget {
-  TabBarExpenseWidget({Key? key}) : super(key: key);
+  const TabBarExpenseWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromRGBO(70,70,70,1),
+      color: const Color.fromRGBO(78,78,78,1),
       child: ValueListenableBuilder(
           valueListenable: CategoryDb.instance.expenseCategoryList,
           builder: (BuildContext ctx, List<CategoryModel> expenseList, Widget? _) {

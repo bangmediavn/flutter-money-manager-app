@@ -38,8 +38,8 @@ class _ScreenCategoryState extends State<ScreenCategory> with SingleTickerProvid
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
-                TabBarIncomeWidget(),
+              children: const [
+                 TabBarIncomeWidget(),
                 TabBarExpenseWidget()
               ],
             ),

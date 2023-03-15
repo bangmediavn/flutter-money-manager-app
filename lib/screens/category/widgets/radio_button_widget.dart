@@ -15,8 +15,10 @@ class RadioButton extends StatelessWidget {
       builder: (BuildContext ctx,CategoryType newType, Widget? _){
         return Row(children: [
           Radio<CategoryType>(
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               value: type,
               groupValue: newType,
+              fillColor: MaterialStateColor.resolveWith((states) => Colors.white),
               onChanged: (value){
                 if(value == null){
                   return;

@@ -63,17 +63,24 @@ class _NewTransActionState extends State<NewTransAction> {
                       controller: _purposeTextController,
                       validator: (value) {
                         return (value == null || value.isEmpty
-                            ? 'Enter Value'
+                            ? 'Enter Purpose'
                             : null);
                       },
                       style: const TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide( color: Colors.white)
+                        ),
                         hintStyle: TextStyle(color: Colors.white),
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide( color: Colors.white)
-
                           ),
                           focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                          errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.red
+                              )
+                          ),
                           hintText: 'Purpose'),
                     ),
                   ),
@@ -83,16 +90,23 @@ class _NewTransActionState extends State<NewTransAction> {
                     child: TextFormField(
                       decoration: const InputDecoration(
                           hintStyle: TextStyle(color: Colors.white),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide( color: Colors.white)
+                          ),
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide( color: Colors.white)
-
                           ),
                           focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                          errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.red
+                              )
+                          ),
                           hintText: 'Amount'),
                       controller: _amountTextController,
                       validator: (value) {
                         return (value == null || value.isEmpty
-                            ? 'Enter Value'
+                            ? 'Enter Amount'
                             : null);
                       },
                       keyboardType: TextInputType.number,
@@ -202,6 +216,7 @@ class _NewTransActionState extends State<NewTransAction> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             DropdownButton<String>(
+                              dropdownColor: const  Color.fromRGBO(70,70,70,1),
                                 underline: const DropdownButtonHideUnderline(
                                     child: SizedBox()),
                                 value: _categoryId,
@@ -219,7 +234,11 @@ class _NewTransActionState extends State<NewTransAction> {
                                       _categoryModel = e;
                                     },
                                     value: e.id,
-                                    child: Text(e.name),
+                                    child: Text(e.name, style: const TextStyle(
+                                        letterSpacing: 1.1,
+                                        fontSize: 14,
+                                        color: Colors.white
+                                    )),
                                   );
                                 }).toList(),
                                 onChanged: (value) {
@@ -277,7 +296,6 @@ class _NewTransActionState extends State<NewTransAction> {
         parsedAmount == null) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 5),
           margin: EdgeInsets.all(8),
           backgroundColor: Colors.red,
           content: Text(
@@ -293,7 +311,6 @@ class _NewTransActionState extends State<NewTransAction> {
       await TransactionDb.instance.insertTransaction(transaction);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 5),
           margin: EdgeInsets.all(8),
           backgroundColor: Colors.green,
           content: Text(

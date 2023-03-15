@@ -7,6 +7,8 @@ import 'package:money_manager/screens/home/widgets/bottom_navigation_widget.dart
 import 'package:money_manager/screens/home/widgets/widget_home.dart';
 import 'package:money_manager/screens/transactions/screen_transactions.dart';
 
+import '../../db/functions/category/category_db.dart';
+
 class ScreenHome extends StatefulWidget {
   ScreenHome({Key? key}) : super(key: key);
   static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(0);
@@ -19,11 +21,10 @@ class _ScreenHomeState extends State<ScreenHome> {
   final _pages = const [WidgetHome(),ScreenTransactions(), ScreenCategory()];
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(70,70,70,1),
+      backgroundColor: const Color.fromRGBO(78,78,78,1),
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(60,60,60,1),
         title: const Text(
@@ -46,15 +47,18 @@ class _ScreenHomeState extends State<ScreenHome> {
       floatingActionButton: FloatingActionButton(
 
         elevation: 1,
-        backgroundColor: const Color.fromRGBO(60,60,60,1),
+        backgroundColor: const Color.fromRGBO(95,95,95,1),
         onPressed: () {
-          if (ScreenHome.selectedIndexNotifier.value == 0) {
-            Navigator.of(context).pushNamed(NewTransAction.routeName);
-          } else if(ScreenHome.selectedIndexNotifier.value == 1) {
-            Navigator.of(context).pushNamed(NewTransAction.routeName);
-          }else {
-            showCategoryAddPopup(context);
-          }
+          
+          ScreenHome.selectedIndexNotifier.value == 2
+              ? showCategoryAddPopup(context)
+              :  CategoryDb.instance.incomeCategoryList.value.isEmpty || CategoryDb.instance.expenseCategoryList.value.isEmpty ?
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Add categories to continue',
+              ))) : Navigator.of(context).pushNamed(NewTransAction.routeName);
+              
         },
         child: const Icon(Icons.add),
       ),

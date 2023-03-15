@@ -6,6 +6,7 @@ import 'package:money_manager/db/models/category/category_model.dart';
 import 'package:money_manager/db/models/transaction/transaction_model.dart';
 import 'package:money_manager/screens/add_transactions/add_new_transaction.dart';
 import 'package:flutter/services.dart';
+import 'package:money_manager/screens/screen_splash.dart';
 
 import '../db/functions/category/category_db.dart';
 import 'home/screen_home.dart';
@@ -24,9 +25,6 @@ Future<void> main() async{
   if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)){
     Hive.registerAdapter(TransactionModelAdapter());
   }
-  await CategoryDb.instance.refreshUi();
-  await TransactionDb.instance.refreshUi();
-
   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
 
   runApp(const MyApp());
@@ -47,7 +45,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.latoTextTheme(
         Theme.of(context).textTheme),
       ),
-      home: ScreenHome(),
+      home: const ScreenSplash(),
       routes: {
         NewTransAction.routeName: (ctx) => const NewTransAction(),
       },

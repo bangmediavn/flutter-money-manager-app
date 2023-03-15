@@ -90,7 +90,7 @@ class ScreenTransactions extends StatelessWidget {
                         child: IconButton(
                           iconSize: 25,
                             onPressed: (){
-                            TransactionDb.instance.onDeleteTransaction(transaction.id!);
+                            TransactionDb.instance.onDeleteTransaction(transaction);
                             },
                             icon: const Icon(
                                 Icons.close,

@@ -11,17 +11,17 @@ class WidgetListHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: TransactionDb.instance.transactionListNotifier,
+      valueListenable: TransactionDb.instance.transactionSubListNotifier,
       builder:
           (BuildContext ctx, List<TransactionModel> transactions, Widget? _) {
-        final list = transactions.reversed.toList();
+        // final list = transactions.reversed.toList();
         return ListView.separated(
           itemBuilder: (BuildContext ctx, int index) {
-            final transaction = list[index];
+            final transaction = transactions[index];
             final date = getTransactionDate(transaction.dateTime);
             return Card(
               color: const Color.fromRGBO(60,60,60,1),
-              margin: const EdgeInsets.fromLTRB(5, 3, 5, 0),
+              margin: const EdgeInsets.fromLTRB(5, 5, 5, 0),
               elevation: 1,
               child: ListTile(
                 leading: Transform.rotate(

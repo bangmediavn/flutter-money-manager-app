@@ -7,6 +7,7 @@ import '../../../db/functions/category/category_db.dart';
 ValueNotifier<CategoryType> selectedCategoryNotifier = ValueNotifier(CategoryType.income);
 
 Future<void> showCategoryAddPopup(BuildContext context) async {
+  final _formKey = GlobalKey<FormState>();
   final categoryNameController = TextEditingController();
   showDialog(context: context, builder: (ctx){
     return SimpleDialog(
@@ -15,14 +16,35 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
       children: [
         Padding(
           padding: const EdgeInsets.all(16),
-          child: TextFormField(
-            controller: categoryNameController,
-            decoration: const InputDecoration(
-              hintText: 'Category name',
-              border: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.white
-                )
+          child: Form(
+            key: _formKey,
+            child: TextFormField(
+              validator: (String? value){
+                return (value == null || value.isEmpty ? 'Enter category name' : null);
+              },
+              controller: categoryNameController,
+              style: const TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                hintStyle: TextStyle(color: Colors.white),
+                hintText: 'Category name',
+                border: OutlineInputBorder(
+                    borderSide: BorderSide( color: Colors.white)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.white
+                  )
+                ),
+                focusedBorder:  OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.white
+                    )
+                ),
+                errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.red
+                    )
+                ),
               ),
             ),
           ),
@@ -38,6 +60,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
               onPressed: (){
+                _formKey.currentState?.validate();
                 if (categoryNameController.text.isEmpty){
                   return;
                 }

@@ -13,7 +13,7 @@ class TabBarIncomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromRGBO(70,70,70,1),
+      color: const Color.fromRGBO(78,78,78,1),
       child: ValueListenableBuilder(
           valueListenable: CategoryDb.instance.incomeCategoryList,
           builder: (BuildContext ctx, List<CategoryModel> incomeList, Widget? _) {
