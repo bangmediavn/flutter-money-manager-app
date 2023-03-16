@@ -51,7 +51,7 @@ class CategoryDb implements CategoryDbFunctions {
     incomeCategoryList.value.clear();
     expenseCategoryList.value.clear();
     await Future.forEach(allCategories, (CategoryModel category) {
-      if (category.type == CategoryType.income) {
+      if (category.categoryType == CategoryType.income) {
         incomeCategoryList.value.add(category);
       } else {
         expenseCategoryList.value.add(category);

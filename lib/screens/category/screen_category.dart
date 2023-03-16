@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_manager/db/functions/category/category_db.dart';
-import 'package:money_manager/screens/category/widgets/tabbar_expense_widgets.dart';
-import 'package:money_manager/screens/category/widgets/tabbar_income_widget.dart';
+import 'package:money_manager/screens/category/widgets/widget_tabbar_list.dart';
 
 class ScreenCategory extends StatefulWidget {
   const ScreenCategory({Key? key}) : super(key: key);
@@ -38,9 +37,23 @@ class _ScreenCategoryState extends State<ScreenCategory> with SingleTickerProvid
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: const [
-                 TabBarIncomeWidget(),
-                TabBarExpenseWidget()
+              children:  [
+              //  Income List
+              Container(
+                  color: const Color.fromRGBO(78,78,78,1),
+                  child: WidgetList(
+                      notifier: CategoryDb.instance.incomeCategoryList,
+                    isTransaction: false,
+                  )
+              ),
+                //Expense list
+                Container(
+                    color: const Color.fromRGBO(78,78,78,1),
+                    child: WidgetList(
+                      notifier: CategoryDb.instance.expenseCategoryList,
+                      isTransaction: false,
+                    )
+                ),
               ],
             ),
           )
@@ -49,19 +62,3 @@ class _ScreenCategoryState extends State<ScreenCategory> with SingleTickerProvid
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

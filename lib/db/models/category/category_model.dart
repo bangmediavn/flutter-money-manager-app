@@ -16,16 +16,16 @@ class CategoryModel {
   @HiveField(2)
   final bool isDelete;
   @HiveField(3)
-  final CategoryType type;
+  final CategoryType categoryType;
   CategoryModel({
     required this.id,
     required this.name,
-    required this.type,
+    required this.categoryType,
     this.isDelete= false
   });
 
   @override
   String toString() {
-    return '{id: $id, name: $name, is_delete: $isDelete, type: $type}';
+    return '{id: $id, name: $name, is_delete: $isDelete, type: $categoryType}';
   }
 }

@@ -47,7 +47,7 @@ class WidgetListHome extends StatelessWidget {
                   ),
                 ),
                 title: Text(
-                  transaction.purpose,
+                  transaction.name,
                   style:  const TextStyle(
                     letterSpacing: 1.1,
                     fontWeight: FontWeight.w600,

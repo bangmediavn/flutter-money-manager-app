@@ -17,7 +17,7 @@ class TransactionModelAdapter extends TypeAdapter<TransactionModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TransactionModel(
-      purpose: fields[0] as String,
+      name: fields[0] as String,
       amount: fields[1] as double,
       dateTime: fields[2] as DateTime,
       categoryType: fields[3] as CategoryType,
@@ -30,7 +30,7 @@ class TransactionModelAdapter extends TypeAdapter<TransactionModel> {
     writer
       ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.purpose)
+      ..write(obj.name)
       ..writeByte(1)
       ..write(obj.amount)
       ..writeByte(2)

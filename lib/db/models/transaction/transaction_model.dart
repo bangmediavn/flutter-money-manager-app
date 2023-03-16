@@ -6,7 +6,7 @@ part 'transaction_model.g.dart';
 @HiveType(typeId: 2)
 class TransactionModel {
   @HiveField(0)
-  final String purpose;
+  final String name;
   @HiveField(1)
   final double amount;
   @HiveField(2)
@@ -19,7 +19,7 @@ class TransactionModel {
   String? id;
 
   TransactionModel({
-    required this.purpose,
+    required this.name,
     required this.amount,
     required this.dateTime,
     required this.categoryType,
@@ -31,7 +31,7 @@ class TransactionModel {
   @override
   String toString() {
     return "<TransactionModel>{"
-        "id: $id, purpose: $purpose, amount: $amount, date_time: $dateTime, "
+        "id: $id, purpose: $name, amount: $amount, date_time: $dateTime, "
         "category_type: $categoryType, category: $category}";
   }
 }

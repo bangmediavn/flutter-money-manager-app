@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager/db/functions/category/category_db.dart';
 import 'package:money_manager/db/functions/transaction/transaction_db.dart';
 import 'package:money_manager/db/models/category/category_model.dart';
 import 'package:money_manager/db/models/transaction/transaction_model.dart';
+import 'package:money_manager/screens/add_transactions/widgets/text_field.dart';
 
 class NewTransAction extends StatefulWidget {
   static const routeName = 'add-transaction';
@@ -58,61 +58,20 @@ class _NewTransActionState extends State<NewTransAction> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      textCapitalization: TextCapitalization.words,
-                      controller: _purposeTextController,
-                      validator: (value) {
-                        return (value == null || value.isEmpty
-                            ? 'Enter Purpose'
-                            : null);
-                      },
-                      style: const TextStyle(color: Colors.white),
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide( color: Colors.white)
-                        ),
-                        hintStyle: TextStyle(color: Colors.white),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide( color: Colors.white)
-                          ),
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-                          errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.red
-                              )
-                          ),
-                          hintText: 'Purpose'),
-                    ),
+                    child:CustomTextField(
+                        controller: _purposeTextController,
+                        errorMsg: 'Enter purpose',
+                        hint: 'Purpose'
+                    )
                   ),
 
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                          hintStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide( color: Colors.white)
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide( color: Colors.white)
-                          ),
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-                          errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.red
-                              )
-                          ),
-                          hintText: 'Amount'),
-                      controller: _amountTextController,
-                      validator: (value) {
-                        return (value == null || value.isEmpty
-                            ? 'Enter Amount'
-                            : null);
-                      },
-                      keyboardType: TextInputType.number,
-                      style: const TextStyle(color: Colors.white),
-
-                    ),
+                    child: CustomTextField(
+                        controller: _amountTextController,
+                        errorMsg: 'Enter Amount',
+                        hint: 'Amount'
+                    )
                   ),
 
                   Row(
@@ -123,7 +82,7 @@ class _NewTransActionState extends State<NewTransAction> {
                           children: [
                             Radio(
                                 materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
+                                MaterialTapTargetSize.shrinkWrap,
                                 value: CategoryType.income,
                                 groupValue: _categoryType,
                                 activeColor: Colors.white,
@@ -150,7 +109,7 @@ class _NewTransActionState extends State<NewTransAction> {
                           children: [
                             Radio(
                                 materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
+                                MaterialTapTargetSize.shrinkWrap,
                                 value: CategoryType.expense,
                                 groupValue: _categoryType,
                                 activeColor: Colors.white,
@@ -200,11 +159,11 @@ class _NewTransActionState extends State<NewTransAction> {
                                 label: Text(_dateTime == null
                                     ? 'Select Date'
                                     : DateFormat(' dd-MMM-yyyy')
-                                        .format(_dateTime!),
+                                    .format(_dateTime!),
                                     style: const TextStyle(
-                                      letterSpacing: 1.1,
-                                      fontSize: 14,
-                                      color: Colors.white
+                                        letterSpacing: 1.1,
+                                        fontSize: 14,
+                                        color: Colors.white
                                     )
                                 )
                             ),
@@ -216,7 +175,7 @@ class _NewTransActionState extends State<NewTransAction> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             DropdownButton<String>(
-                              dropdownColor: const  Color.fromRGBO(70,70,70,1),
+                                dropdownColor: const  Color.fromRGBO(70,70,70,1),
                                 underline: const DropdownButtonHideUnderline(
                                     child: SizedBox()),
                                 value: _categoryId,
@@ -224,10 +183,10 @@ class _NewTransActionState extends State<NewTransAction> {
                                 iconDisabledColor: Colors.white,
                                 hint: const Text('Select Category',style: TextStyle(color: Colors.white),),
                                 items: (_categoryType == CategoryType.income
-                                        ? CategoryDb
-                                            .instance.incomeCategoryList.value
-                                        : CategoryDb
-                                            .instance.expenseCategoryList.value)
+                                    ? CategoryDb
+                                    .instance.incomeCategoryList.value
+                                    : CategoryDb
+                                    .instance.expenseCategoryList.value)
                                     .map((e) {
                                   return DropdownMenuItem(
                                     onTap: () {
@@ -258,21 +217,21 @@ class _NewTransActionState extends State<NewTransAction> {
                     child: SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              addTransactions();
-                            }
-                          },
-                          icon: const Icon(Icons.check),
-                          label: const Text(
-                              'Add',
-                              style: TextStyle(
-                                  letterSpacing: 1.1,
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600
-                              )
-                          ),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            addTransactions();
+                          }
+                        },
+                        icon: const Icon(Icons.check),
+                        label: const Text(
+                            'Add',
+                            style: TextStyle(
+                                letterSpacing: 1.1,
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600
+                            )
+                        ),
 
 
                       ),
@@ -303,7 +262,7 @@ class _NewTransActionState extends State<NewTransAction> {
           )));
     } else {
       final transaction = TransactionModel(
-          purpose: purposeText,
+          name: purposeText,
           amount: parsedAmount,
           dateTime: _dateTime!,
           categoryType: _categoryType!,

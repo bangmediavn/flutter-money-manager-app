@@ -7,8 +7,10 @@ import '../../../db/functions/category/category_db.dart';
 ValueNotifier<CategoryType> selectedCategoryNotifier = ValueNotifier(CategoryType.income);
 
 Future<void> showCategoryAddPopup(BuildContext context) async {
-  final _formKey = GlobalKey<FormState>();
+
+  final formKey = GlobalKey<FormState>();
   final categoryNameController = TextEditingController();
+
   showDialog(context: context, builder: (ctx){
     return SimpleDialog(
       backgroundColor: const Color.fromRGBO(68,68,68,1),
@@ -17,7 +19,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
         Padding(
           padding: const EdgeInsets.all(16),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: TextFormField(
               validator: (String? value){
                 return (value == null || value.isEmpty ? 'Enter category name' : null);
@@ -52,15 +54,15 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(children: [
-            Expanded(child: RadioButton(title: 'Income',type: CategoryType.income,)),
-            Expanded(child: RadioButton(title: 'Expense',type: CategoryType.expense,)),
+            Expanded(child: RadioButton(title: 'Income',type: CategoryType.income, categoryTypeNotifier: selectedCategoryNotifier, )),
+            Expanded(child: RadioButton(title: 'Expense',type: CategoryType.expense, categoryTypeNotifier: selectedCategoryNotifier)),
           ],),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
               onPressed: (){
-                _formKey.currentState?.validate();
+                formKey.currentState?.validate();
                 if (categoryNameController.text.isEmpty){
                   return;
                 }
@@ -69,7 +71,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
                 final category = CategoryModel(
                     id: DateTime.now().millisecondsSinceEpoch.toString(),
                     name: _name,
-                    type: _type);
+                    categoryType: _type);
 
                 CategoryDb.instance.insertCategory(category);
                 Navigator.of(ctx).pop();

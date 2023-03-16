@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:money_manager/db/functions/transaction/transaction_db.dart';
 import 'package:money_manager/db/models/category/category_model.dart';
 import 'package:money_manager/db/models/transaction/transaction_model.dart';
 import 'package:money_manager/screens/add_transactions/add_new_transaction.dart';
-import 'package:flutter/services.dart';
 import 'package:money_manager/screens/screen_splash.dart';
 
-import '../db/functions/category/category_db.dart';
-import 'home/screen_home.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +43,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const ScreenSplash(),
       routes: {
-        NewTransAction.routeName: (ctx) => const NewTransAction(),
+        NewTransAction.routeName: (ctx) => NewTransAction(),
       },
     );
   }
