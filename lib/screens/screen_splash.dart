@@ -35,7 +35,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
             child: Padding(
               padding: EdgeInsets.only(bottom: 50),
               child: Text(
-                  'Money Manager',
+                  'Quản lý thu chi cá nhân',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
