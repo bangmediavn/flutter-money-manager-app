@@ -10,7 +10,7 @@ import 'package:money_manager/screens/transactions/screen_transactions.dart';
 import '../../db/functions/category/category_db.dart';
 
 class ScreenHome extends StatefulWidget {
-  ScreenHome({Key? key}) : super(key: key);
+  const ScreenHome({Key? key}) : super(key: key);
   static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(0);
 
   @override
